@@ -33,8 +33,11 @@ public class GPSComputer {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		for(int i = 0; i < gpspoints.length-1; i++) {
+			distance += GPSUtils.distance(gpspoints[i], gpspoints[i+1]);
+		}
 
+		return distance;
 		// TODO - SLUTT
 
 	}
@@ -46,26 +49,40 @@ public class GPSComputer {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		for(int i = 0; i < gpspoints.length-1; i++) {
+			double elevation1 = gpspoints[i].getElevation();
+			double elevation2 = gpspoints[i+1].getElevation();
+			
+			 if(elevation2 > elevation1) {
+				 elevation += elevation2 - elevation1;
+			 }
+		}
 
+		return elevation;
 		// TODO - SLUTT
 
 	}
 
 	// beregn total tiden for hele turen (i sekunder)
 	public int totalTime() {
-
-		throw new UnsupportedOperationException(TODO.method());
-
-	}
 		
+		return gpspoints[gpspoints.length-1].getTime() - gpspoints[0].getTime();
+		
+	}
+	
 	// beregn gjennomsnitshastighets mellom hver av gps punktene
 
 	public double[] speeds() {
 		
 		// TODO - START		// OPPGAVE - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		double[] avgSpeeds = new double[gpspoints.length-1];
+		
+		for(int i = 0; i < gpspoints.length-1; i++) {
+			avgSpeeds[i] = GPSUtils.speed(gpspoints[i], gpspoints[i+1]);
+		}
+		
+		return avgSpeeds;
 
 		// TODO - SLUTT
 
@@ -77,8 +94,16 @@ public class GPSComputer {
 		
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		double[] avgspeeds = speeds();
 		
+		maxspeed = avgspeeds[0];
+		
+		for(int i = 1; i < avgspeeds.length; i++) {
+			if(avgspeeds[i] > maxspeed)
+				maxspeed = avgspeeds[i];
+		}
+		
+		return maxspeed;
 		// TODO - SLUTT
 		
 	}
@@ -89,7 +114,16 @@ public class GPSComputer {
 		
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		double[] avgspeeds = speeds();
+		double totspeed = 0;
+		
+		for(int i = 0; i < avgspeeds.length; i++) {
+			totspeed += avgspeeds[i];
+		}
+		
+		average = totspeed/avgspeeds.length;
+		
+		return average;
 		
 		// TODO - SLUTT
 		

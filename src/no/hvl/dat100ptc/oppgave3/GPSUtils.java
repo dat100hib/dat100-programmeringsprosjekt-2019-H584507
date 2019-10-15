@@ -28,9 +28,16 @@ public class GPSUtils {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		min = da[0];
+		
+		for (double d : da) {
+			if (d < min) {
+				min = d;
+			}
+		}
 
-		// TODO - SLUT
+		return min;
+		// TODO - SLUTT
 
 	}
 
@@ -38,8 +45,13 @@ public class GPSUtils {
 
 		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
+		double[] latitudes = new double[gpspoints.length];
 		
+		for(int i = 0; i < gpspoints.length; i++) {
+			latitudes[i] = gpspoints[i].getLatitude();
+		}
+		
+		return latitudes;
 		// TODO - SLUTT
 	}
 
@@ -47,7 +59,13 @@ public class GPSUtils {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		double[] longitudes = new double[gpspoints.length];
+		
+		for(int i = 0; i < gpspoints.length; i++) {
+			longitudes[i] = gpspoints[i].getLongitude();
+		}
+		
+		return longitudes;
 		
 		// TODO - SLUTT
 
@@ -62,8 +80,18 @@ public class GPSUtils {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		latitude1 = toRadians(gpspoint1.getLatitude());
+		latitude2 = toRadians(gpspoint2.getLatitude());
+		longitude1 = toRadians(gpspoint1.getLongitude());
+		longitude2 = toRadians(gpspoint2.getLongitude());
 
+		double la = latitude2 - latitude1;
+		double lo = longitude2 - longitude1;
+		
+		double a = Math.pow(sin(la/2),2) + cos(latitude1)*cos(latitude2)*Math.pow(sin(lo/2),2);
+		double c = 2*atan2(sqrt(a), sqrt(1-a));
+		
+		return d = R*c;
 		// TODO - SLUTT
 
 	}
@@ -75,7 +103,10 @@ public class GPSUtils {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		secs = gpspoint2.getTime() - gpspoint1.getTime();
+		double distance = distance(gpspoint1, gpspoint2);
+		
+		return speed = (distance/secs)*3.6;
 
 		// TODO - SLUTT
 
@@ -87,12 +118,24 @@ public class GPSUtils {
 		String TIMESEP = ":";
 
 		// TODO - START
-
-		throw new UnsupportedOperationException(TODO.method());
+		int tt = secs%3600;
+		int mm = secs%3600/60;
+		int ss = secs%3600%60;
+		String T = Integer.toString(tt);
+		String M = Integer.toString(mm);
+		String S = Integer.toString(ss);
+		
+		if(tt < 0) {
+			timestr = "0";
+		}
+		
+		timestr = TIMESEP + (secs-(secs%3600));
+		return timestr;
 		
 		// TODO - SLUTT
 
 	}
+	
 	private static int TEXTWIDTH = 10;
 
 	public static String formatDouble(double d) {
@@ -101,8 +144,9 @@ public class GPSUtils {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
-
+		str = String.format("%10.2f", d);
+		
+		return str;
 		// TODO - SLUTT
 		
 	}
