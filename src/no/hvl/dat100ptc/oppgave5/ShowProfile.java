@@ -19,7 +19,7 @@ public class ShowProfile extends EasyGraphics {
 	private static int MAXBARHEIGHT = 500; // assume no height above 500 meters
 	
 	private GPSPoint[] gpspoints;
-
+	
 	public ShowProfile() {
 
 		String filename = JOptionPane.showInputDialog("GPS data filnavn: ");
@@ -38,7 +38,7 @@ public class ShowProfile extends EasyGraphics {
 		int N = gpspoints.length; // number of data points
 
 		makeWindow("Height profile", 2 * MARGIN + 3 * N, 2 * MARGIN + MAXBARHEIGHT);
-
+		
 		// top margin + height of drawing area
 		showHeightProfile(MARGIN + MAXBARHEIGHT); 
 	}
@@ -51,10 +51,23 @@ public class ShowProfile extends EasyGraphics {
 		int kolonnebredde = 3;
 		
 		for(int i = 0; i < gpspoints.length; i++) {
-			setColor(0, 255, 255);
-			fillRectangle(50+i*kolonnebredde, ybase-500, kolonnebredde, (int)(gpspoints[i].getElevation()));
-			setColor(0, 0, 0);
-			drawRectangle(50+i*kolonnebredde, ybase-500, kolonnebredde, (int)(gpspoints[i].getElevation()));
+			
+			double elevation = gpspoints[i].getElevation();
+			
+			if(elevation > 0 && elevation < 500) {
+				setColor(89, 86, 224);
+				fillRectangle(MARGIN+(i*kolonnebredde), ybase-(int)(elevation), kolonnebredde, (int)(elevation));
+				
+				setColor(0, 0, 0);
+				drawRectangle(MARGIN+(i*kolonnebredde), ybase-(int)(elevation), kolonnebredde, (int)(elevation));
+				
+			} else if (elevation >= 500) {
+				setColor(89, 86, 224);
+				fillRectangle(MARGIN+(i*kolonnebredde), MARGIN, kolonnebredde, MAXBARHEIGHT);
+				
+				setColor(0, 0, 0);
+				drawRectangle(MARGIN+(i*kolonnebredde), MARGIN, kolonnebredde, MAXBARHEIGHT);
+			}
 		}
 		
 		// TODO - SLUTT

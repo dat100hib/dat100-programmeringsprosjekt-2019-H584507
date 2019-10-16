@@ -113,15 +113,10 @@ public class GPSComputer {
 		double average = 0;
 		
 		// TODO - START
+		double totdistance = totalDistance();
+		double time = totalTime();
 		
-		double[] avgspeeds = speeds();
-		double totspeed = 0;
-		
-		for(int i = 0; i < avgspeeds.length; i++) {
-			totspeed += avgspeeds[i];
-		}
-		
-		average = totspeed/avgspeeds.length;
+		average = totdistance/time;
 		
 		return average;
 		

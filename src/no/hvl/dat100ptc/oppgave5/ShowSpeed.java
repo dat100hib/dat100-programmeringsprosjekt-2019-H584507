@@ -31,14 +31,14 @@ public class ShowSpeed extends EasyGraphics {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
 	public void run() {
 
 		int N = gpspoints.length-1; // number of data points
 		
 		makeWindow("Speed profile", 2*MARGIN + 2 * N, 2 * MARGIN + BARHEIGHT);
 		
-		showSpeedProfile(MARGIN + BARHEIGHT,N);
+		showSpeedProfile(MARGIN + BARHEIGHT, N);
 	}
 	
 	public void showSpeedProfile(int ybase, int N) {
@@ -47,9 +47,24 @@ public class ShowSpeed extends EasyGraphics {
 		int timescaling = Integer.parseInt(getText("Tidsskalering"));
 				
 		// TODO - START
+		double[] speeds = gpscomputer.speeds();
+		double avgspeed = 25;//gpscomputer.averageSpeed();
+		int kolonnebredde = 2;
 		
-		throw new UnsupportedOperationException(TODO.method());
-	
+		
+		for(int i = 0; i < speeds.length; i++) {
+			double speed = speeds[i];
+			
+			setColor(89, 86, 224);
+			fillRectangle(MARGIN+(i*kolonnebredde), ybase-(int)(speed), kolonnebredde, (int)(speed));
+			
+			setColor(0, 0, 0);
+			drawRectangle(MARGIN+(i*kolonnebredde), ybase-(int)(speed), kolonnebredde, (int)(speed));
+			
+		}
+		
+		setColor(0, 255, 127);
+		drawLine(MARGIN, ybase-(int)(avgspeed), MARGIN+(N*kolonnebredde), ybase-(int)(avgspeed));
 		// TODO - SLUTT
 	}
 }
