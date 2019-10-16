@@ -118,18 +118,26 @@ public class GPSUtils {
 		String TIMESEP = ":";
 
 		// TODO - START
-		int tt = secs%3600;
+		int tt = secs/3600;
 		int mm = secs%3600/60;
 		int ss = secs%3600%60;
 		String T = Integer.toString(tt);
 		String M = Integer.toString(mm);
 		String S = Integer.toString(ss);
 		
-		if(tt < 0) {
-			timestr = "0";
+		if(tt < 10) {
+			T="0" + Integer.toString(tt);
 		}
 		
-		timestr = TIMESEP + (secs-(secs%3600));
+		if(mm < 10) {
+			M="0" + Integer.toString(mm);
+		}
+		
+		if(ss < 10) {
+			S="0" + Integer.toString(ss);
+		}
+		
+		timestr = "  " + T + TIMESEP + M + TIMESEP + S;
 		return timestr;
 		
 		// TODO - SLUTT
