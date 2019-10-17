@@ -116,7 +116,7 @@ public class GPSComputer {
 		double totdistance = totalDistance();
 		double time = totalTime();
 		
-		average = totdistance/time;
+		average = totdistance/time*3.6;
 		
 		return average;
 		
@@ -172,9 +172,25 @@ public class GPSComputer {
 		double totalkcal = 0;
 
 		// TODO - START
+		double speedmph = averageSpeed()*MS;
+		double met = 0;
+				
+		if(speedmph < 10) {
+			met = 4.0;
+		} else if(speedmph < 12) {
+			met = 6.0;
+		} else if(speedmph < 14) {
+			met = 8.0;
+		} else if(speedmph < 16) {
+			met = 10.0;
+		} else if(speedmph < 20) {
+			met = 12.0;
+		} else {
+			met = 16.0;
+		}
+		totalkcal = weight*totalTime()/3600*met;
 		
-		//		if 
-		return 0;
+		return totalkcal;
 		// TODO - SLUTT
 		
 	}
@@ -187,7 +203,21 @@ public class GPSComputer {
 
 		// TODO - START
 
-		throw new UnsupportedOperationException(TODO.method());
+		String time=GPSUtils.formatTime (totalTime());
+		String distance=GPSUtils.formatDouble(totalDistance());
+		String Elevation=GPSUtils.formatDouble(totalElevation());
+		String maxSpeed=GPSUtils.formatDouble(maxSpeed());
+		String AverageSpeed=GPSUtils.formatDouble(averageSpeed());
+		String energy=GPSUtils.formatDouble(totalKcal(WEIGHT));
+		System.out.println(
+				"Total Time     :" +time+"\n"+
+				"Total Distance :" +distance+" km"+"\n"+
+				"Total Elevation:" +Elevation+" m"+"\n"+
+				"Max Speed      :" +maxSpeed+" km/t"+"\n"+
+				"Average Speed  :" +AverageSpeed+" km/t"+"\n"+
+				"Energy         :" +energy+" kcal");
+		
+		System.out.println("==============================================");
 		
 		// TODO - SLUTT
 		
